@@ -5,13 +5,9 @@ const Categories = ({data}) => {
   return (
     <div>
       <h1>Data Display Component</h1>
-      {console.log(data)}
-      <ul className="grid grid-cols-2 gap-4 p-5">
+      <ul className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
         {data.map((item, index) => (
           <Product key={index} item={item} />
-          // <li key={index}>
-          //   {item.productnaam}
-          // </li>
         ))}
       </ul>
     </div>
