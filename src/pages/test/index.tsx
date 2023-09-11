@@ -1,9 +1,8 @@
+import MainForm from '../../components/Forms/MainForm';
 
 const index = () => {
   return (
-    <div>
-      
-    </div>
+    <MainForm />
   )
 };
 
