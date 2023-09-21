@@ -1,7 +1,7 @@
-const MainForm = () => {
+const testform = () => {
   return (
     //container
-    <div className="w-70 mx-15 bg-black h-550 rounded-5 overflow-hidden">
+    <div className="w-70 mx-15 bg-black h-550 rounded-5 overflow-hidden rounded-xl">
       <form action="categorieen.php" method="POST">
         <ul className="flex w-70 relative top-30 list-none justify-around mx-auto">
           <li
@@ -139,13 +139,13 @@ const MainForm = () => {
               </div>
             </div>
           </div>
-
           <div class="buttonbottom">
             <button type="button" class="next" onclick="categoriefunction()">
               Volgende
             </button>
           </div>
         </div>
+
         <div id="categorieform" class="paginadivs">
           <div class="row">
             <div class="categoriesboven">
@@ -377,6 +377,7 @@ const MainForm = () => {
             </button>
           </div>
         </div>
+
         <div id="priceform" class="paginadivs">
           <div class="row">
             <div class="prijsboven">
@@ -441,4 +442,4 @@ const MainForm = () => {
   );
 };
 
-export default MainForm;
+export default testform;

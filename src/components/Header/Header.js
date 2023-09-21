@@ -86,7 +86,7 @@ const Header = () => {
 
   return (
     // bg-gray-900
-    <nav className="bg-white text-white p-4 flex items-center justify-between rounded-lg shadow dark:bg-gray-900">
+    <nav className="bg-white text-white p-4 flex items-center justify-between rounded-lg shadow dark:bg-gray-900 mb-5">
       {renderMenu()}
       {renderLogo()}
       {renderLogin()}
