@@ -46,14 +46,23 @@ export interface FormCarousel_StyledStageButton {
   onClick (index: number): void;
 }
 
-export interface Form_Details {
-  email: string
+export interface Form_Age {
+  age: number
+}
+export interface Form_Gender {
+  gender: string
+}
+export interface Form_Category {
+  category: []
+}
+export interface Form_Price {
+  price: number
 }
 
-export interface Form_Bio {
-  bio: string
-}
+// export interface Form_Bio {
+//   bio: string
+// }
 
-export interface Form_Submit {
-  agree: boolean
-}
+// export interface Form_Submit {
+//   agree: boolean
+// }

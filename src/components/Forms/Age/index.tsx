@@ -1,9 +1,9 @@
 import React from 'react';
 import { withFormik, FormikProps, FormikErrors, Form, Field, ErrorMessage } from 'formik';
-import { FormCarousel_Form, Form_Details } from '../FormCarousel/types';
+import { FormCarousel_Form, Form_Age } from '../FormCarousel/types';
 import Stage from '../FormCarousel/Stage';
 
-const DetailsForm: React.FC<FormCarousel_Form & FormikProps<Form_Details>> = (props) => {
+const AgeForm: React.FC<FormCarousel_Form & FormikProps<Form_Age>> = (props) => {
 
   return (
     <Stage transition={props.transition}>
@@ -32,16 +32,16 @@ const DetailsForm: React.FC<FormCarousel_Form & FormikProps<Form_Details>> = (pr
   );
 }
 
-const Details = withFormik<FormCarousel_Form, Form_Details>({
+const Age = withFormik<FormCarousel_Form, Form_Age>({
   mapPropsToValues: props => {
     return {
-      email: '',
+      age: 0,
     };
   },
-  validate: (values: Form_Details) => {
+  validate: (values: Form_Age) => {
     let errors: FormikErrors<any> = {};
-    if (values.email === '') {
-      errors['email'] = 'Please provide an email';
+    if (!values.age) {
+      errors['age'] = 'Please provide an age';
     }
     return errors;
   },
@@ -49,6 +49,6 @@ const Details = withFormik<FormCarousel_Form, Form_Details>({
     formikBag.props.setCompleted(formikBag.props.index, true);
     formikBag.props.toggleStage(formikBag.props.index + 1);
   }
-})(DetailsForm);
+})(AgeForm);
 
-export default Details;
+export default Age;

@@ -7,10 +7,10 @@ import {
   Field,
   ErrorMessage,
 } from 'formik';
-import { FormCarousel_Form, Form_Details } from '../FormCarousel/types';
+import { FormCarousel_Form, Form_Gender } from '../FormCarousel/types';
 import Stage from '../FormCarousel/Stage';
 
-const DetailsForm: React.FC<FormCarousel_Form & FormikProps<Form_Details>> = (
+const GenderForm: React.FC<FormCarousel_Form & FormikProps<Form_Gender>> = (
   props
 ) => {
   return (
@@ -23,6 +23,7 @@ const DetailsForm: React.FC<FormCarousel_Form & FormikProps<Form_Details>> = (
             className="flex flex-col items-center"
           >
             <div className="flex flex-col items-start">
+            <h3>Please select your gender</h3>
               <label className="flex space-x-2">
                 <Field
                   type="radio"
@@ -53,7 +54,7 @@ const DetailsForm: React.FC<FormCarousel_Form & FormikProps<Form_Details>> = (
             </div>
           </div>
 
-          {/* <h3>Please select your gender</h3>
+          {/* 
           <Field
             className="textbox"
             component="input"
@@ -71,23 +72,24 @@ const DetailsForm: React.FC<FormCarousel_Form & FormikProps<Form_Details>> = (
   );
 };
 
-const Details = withFormik<FormCarousel_Form, Form_Details>({
+const Gender = withFormik<FormCarousel_Form, Form_Gender>({
   mapPropsToValues: (props) => {
     return {
-      email: '',
+      gender: '',
     };
   },
-  validate: (values: Form_Details) => {
+  validate: (values: Form_Gender) => {
     let errors: FormikErrors<any> = {};
-    if (values.email === '') {
-      errors['email'] = 'Please provide an email';
+    if (values.gender) {
+      errors['gender'] = 'Please provide a gender';
     }
     return errors;
   },
   handleSubmit: (values, formikBag) => {
     formikBag.props.setCompleted(formikBag.props.index, true);
     formikBag.props.toggleStage(formikBag.props.index + 1);
+    console.log("test gender submit");
   },
-})(DetailsForm);
+})(GenderForm);
 
-export default Details;
+export default Gender;

@@ -8,21 +8,22 @@ import {
   ErrorMessage,
   Formik,
 } from 'formik';
-import { FormCarousel_Form, Form_Details } from '../FormCarousel/types';
+import { FormCarousel_Form, Form_Category } from '../FormCarousel/types';
 import Stage from '../FormCarousel/Stage';
 
 import Select from 'react-select';
 
 const initialValues = {
-  selectedCategories: [] // Store selected categories and subcategories
+  selectedCategories: [], // Store selected categories and subcategories
 };
 
 const categoryOptions = [
   {
     label: 'Books',
     options: [
-      { value: 'Subcategory 1.1', label: 'Subcategory 1.1' },
-      { value: 'Subcategory 1.2', label: 'Subcategory 1.2' },
+      { value: 'Novels', label: 'Novels' },
+      { value: 'Thrillers', label: 'Thrillers' },
+      { value: 'Fantasy', label: 'Fantasy' },
     ],
   },
   {
@@ -30,7 +31,6 @@ const categoryOptions = [
     options: [
       { value: 'Subcategory 2.1', label: 'Subcategory 2.1' },
       { value: 'Subcategory 2.2', label: 'Subcategory 2.2' },
-
     ],
   },
   {
@@ -67,143 +67,87 @@ const validateForm = (values) => {
   const errors = {};
 
   if (values.selectedCategories.length === 0) {
-    errors.selectedCategories = 'Please select at least one category or subcategory';
+    errors.selectedCategories =
+      'Please select at least one category or subcategory';
   }
 
   return errors;
 };
 
-const handleSubmit = (values) => {
+const handleSubmit = (values, formikBag) => {
   // Handle form submission here
   console.log(values.selectedCategories);
+  console.log("test");
+  formikBag.props.handleSubmit();
 };
 
-const DetailsForm = (
-  props
-) => {
+const CategoryForm = (props) => {
   return (
     <Stage transition={props.transition}>
       <div className="wrap">
-      <div>
-      <Formik
-        initialValues={initialValues}
-        validate={validateForm}
-        onSubmit={handleSubmit}
-      >
-        {({ setFieldValue, values }) => (
-          <Form>
-            <h3>Choose categories and subcategories</h3>
-            {/* <Field name="selectedCategories">
-              {({ field }) => (
-                <Select
-                  {...field}
-                  isMulti
-                  options={categoryOptions}
-                  onChange={(selectedOptions) => setFieldValue('selectedCategories', selectedOptions)}
-                  value={values.selectedCategories}
-                  // menuPortalTarget={document.body}
-                />
-              )}
-            </Field> */}
-            <p className="error">
-              <ErrorMessage name="selectedCategories" />
-            </p>
-
-            <input className="textbox submit" type="submit" value="Continue" />
-          </Form>
-        )}
-      </Formik>
-    </div>
-
-
-
-        {/* <Form>
-          <h3>Choose a category</h3>
-          <Field
-            className='textbox'
-            component='input'
-            name="age"
-            placeholder="Age"
-          />
-          <p className="error">
-            <ErrorMessage name="age" />
-          </p>
-
-          <input
-            className='textbox submit'
-            type="submit"
-            value="Continue"
-          />
-        </Form> */}
-        {/* <Form>
-          <h3>Choose categories</h3>
-          <Field
-            as="select"
-            className="textbox"
-            name="category"
-            multiple // Add the 'multiple' attribute to allow multiple selections
+        <div>
+          <Formik
+            initialValues={initialValues}
+            validate={validateForm}
+            onSubmit={handleSubmit}
+            // onSubmit={(values, formikBag) => {
+            //   handleSubmit(values, formikBag); // Call your custom handleSubmit function
+            //   // Optionally, you can add additional logic here if needed.
+            // }}
           >
-            <optgroup label="Boeken">
-              <option value="Novels">Novels</option>
-              <option value="Thrillers">Thrillers</option>
-              <option value="Fantasy">Fantasy</option>
-            </optgroup>
-            <optgroup label="Sports">
-              <option value="Soccer">Soccer</option>
-              <option value="Basketball">Basketball</option>
-              <option value="Skateboarding">Skateboarding</option>
-            </optgroup>
-            <optgroup label="Games">
-              <option value="Fighting">Fighting</option>
-              <option value="Platformer">Platformer</option>
-              <option value="Racing">Racing</option>
-            </optgroup>
-            <optgroup label="Toys">
-              <option value="Dolls">Dolls</option>
-              <option value="Outdoor Play Sets">Outdoor Play Sets</option>
-              <option value="Cuddly Toys">Cuddly Toys</option>
-            </optgroup>
-            <optgroup label="Animals">
-              <option value="Dogs">Dogs</option>
-              <option value="Cats">Cats</option>
-              <option value="Rabbits">Rabbits</option>
-              <option value="Hamsters">Hamsters</option>
-            </optgroup>
-            <optgroup label="Fashion">
-              <option value="Hoodies">Hoodies</option>
-              <option value="Dresses">Dresses</option>
-              <option value="T-Shirts">T-Shirts</option>
-              <option value="Jackets">Jackets</option>
-            </optgroup>
-          </Field>
-          <p className="error">
-            <ErrorMessage name="category" />
-          </p>
+            {({ setFieldValue, values }) => (
+              <Form>
+                <h3>Choose categories and subcategories</h3>
+                <Field name="selectedCategories">
+                  {({ field }) => (
+                    <Select
+                      {...field}
+                      isMulti
+                      options={categoryOptions}
+                      onChange={(selectedOptions) =>
+                        setFieldValue('selectedCategories', selectedOptions)
+                      }
+                      value={values.selectedCategories}
+                      // menuPortalTarget={document.body}
+                    />
+                  )}
+                </Field>
+                <p className="error">
+                  <ErrorMessage name="selectedCategories" />
+                </p>
 
-          <input className="textbox submit" type="submit" value="Continue" />
-        </Form> */}
+                <input
+                  className="textbox submit"
+                  type="submit"
+                  value="Continue"
+                />
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
     </Stage>
   );
 };
 
-const Details = withFormik({
+const Category = withFormik({
   mapPropsToValues: (props) => {
     return {
-      email: '',
+      selectedCategories: [],
     };
   },
   validate: (values) => {
     let errors = {};
-    if (values.email === '') {
-      errors['email'] = 'Please provide an email';
+    if (values.selectedCategories) {
+      errors['selectedCategories'] = 'Please provide at least one category';
     }
     return errors;
   },
   handleSubmit: (values, formikBag) => {
     formikBag.props.setCompleted(formikBag.props.index, true);
     formikBag.props.toggleStage(formikBag.props.index + 1);
+    console.log("test selected categories");
   },
-})(DetailsForm);
+})(CategoryForm);
 
-export default Details;
+export default Category;
