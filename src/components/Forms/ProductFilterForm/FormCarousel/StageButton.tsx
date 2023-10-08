@@ -12,10 +12,10 @@ const activeColor = '#000';
 const StyledButton = styled.button<FormCarousel_StyledStageButton>`
   border: 1px solid
     ${(props) =>
-      props.complete === true ? `${completedColor} !important` : inactiveColor};
+      props.isComplete === true ? `${completedColor} !important` : inactiveColor};
   border-radius: 50px;
   color: ${(props) =>
-    props.complete === true ? `${completedColor} !important` : inactiveColor};
+    props.isComplete === true ? `${completedColor} !important` : inactiveColor};
   font-size: 1rem;
   padding: 0.45em 1.2em;
   position: relative;
@@ -41,7 +41,7 @@ const StyledButton = styled.button<FormCarousel_StyledStageButton>`
 export const StageButton: React.FC<FormCarousel_StageButton> = (props) => {
   return (
     <StyledButton
-      complete={props.complete} // ERROR
+      isComplete={props.isComplete} // ERROR
       disabled={props.active ? true : false}
       onClick={() => {
         props.toggle(props.index);

@@ -4,6 +4,7 @@ import { FormCarousel_Form, Form_Category } from '../FormCarousel/types';
 import Stage from '../FormCarousel/Stage';
 import Select from 'react-select';
 import { CustomInput } from './CategoryFormStyles';
+import { v4 as uuidv4 } from 'uuid'; // Import uuid
 
 interface FormValues {
   selectedCategories: any[];
@@ -47,8 +48,13 @@ const CategoryForm: React.FC<FormCarousel_Form & FormikProps<FormValues>> = (pro
               <Select
                 {...field.field}
                 isMulti
-                options={categoryOptions}
-                onChange={(selectedOptions) =>
+                options={categoryOptions.map(category => ({
+                  ...category,
+                  options: category.options.map(option => ({
+                    ...option,
+                    key: uuidv4(), // Generate a unique key using uuid
+                  })),
+                }))}                onChange={(selectedOptions: any) =>
                   props.setFieldValue('selectedCategories', selectedOptions)
                 }
                 value={props.values.selectedCategories}

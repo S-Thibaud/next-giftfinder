@@ -9,7 +9,6 @@ export const CustomInput = styled.div`
   background: rgba(255, 255, 255, 0.8);
   padding: 10px;
   border-radius: 5px;
-
 `;
 
 export const CustomInputField = styled.input`

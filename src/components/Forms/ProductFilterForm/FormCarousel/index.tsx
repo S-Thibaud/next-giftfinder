@@ -46,7 +46,7 @@ export class FormCarousel extends React.Component<FormCarouselProps, FormCarouse
               {i > 0 && <FontAwesomeIcon className='separator' icon={faAngleDoubleRight} transform="grow-4" />}
               <StageButton
                 active={(i === this.state.activeStage ? true : false)}
-                complete={this.state.stageCompleted[i] === true}
+                isComplete={this.state.stageCompleted[i] === true}
                 icon={item.icon}
                 index={i}
                 label={item.label}

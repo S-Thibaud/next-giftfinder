@@ -33,7 +33,7 @@ export interface FormCarousel_StyledStage {
 
 export interface FormCarousel_StageButton {
   active: boolean;
-  complete: boolean;
+  isComplete: boolean;
   icon: React.ReactNode;
   index: number;
   label: string;
@@ -41,7 +41,7 @@ export interface FormCarousel_StageButton {
 }
 
 export interface FormCarousel_StyledStageButton {
-  complete: boolean;
+  isComplete: boolean;
   disabled: boolean;
   onClick (index: number): void;
 }
