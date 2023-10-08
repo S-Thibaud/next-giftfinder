@@ -27,7 +27,7 @@ const GenderForm: React.FC<FormCarousel_Form & FormikProps<Form_Gender>> = (
               <label className="flex space-x-2">
                 <Field
                   type="radio"
-                  name="picked"
+                  name="gender"
                   value="Male"
                   className="form-radio h-5 w-5 text-indigo-600"
                 />
@@ -36,7 +36,7 @@ const GenderForm: React.FC<FormCarousel_Form & FormikProps<Form_Gender>> = (
               <label className="flex items-start space-x-2">
                 <Field
                   type="radio"
-                  name="picked"
+                  name="gender"
                   value="Female"
                   className="form-radio h-5 w-5 text-indigo-600"
                 />
@@ -45,7 +45,7 @@ const GenderForm: React.FC<FormCarousel_Form & FormikProps<Form_Gender>> = (
               <label className="flex items-center space-x-2">
                 <Field
                   type="radio"
-                  name="picked"
+                  name="gender"
                   value="X"
                   className="form-radio h-5 w-5 text-indigo-600"
                 />
@@ -54,13 +54,6 @@ const GenderForm: React.FC<FormCarousel_Form & FormikProps<Form_Gender>> = (
             </div>
           </div>
 
-          {/* 
-          <Field
-            className="textbox"
-            component="input"
-            name="gender"
-            placeholder="Gender"
-          /> */}
           <p className="error">
             <ErrorMessage name="gender" />
           </p>
@@ -80,7 +73,7 @@ const Gender = withFormik<FormCarousel_Form, Form_Gender>({
   },
   validate: (values: Form_Gender) => {
     let errors: FormikErrors<any> = {};
-    if (values.gender) {
+    if (values.gender.length === 0) {
       errors['gender'] = 'Please provide a gender';
     }
     return errors;
@@ -88,7 +81,6 @@ const Gender = withFormik<FormCarousel_Form, Form_Gender>({
   handleSubmit: (values, formikBag) => {
     formikBag.props.setCompleted(formikBag.props.index, true);
     formikBag.props.toggleStage(formikBag.props.index + 1);
-    console.log("test gender submit");
   },
 })(GenderForm);
 

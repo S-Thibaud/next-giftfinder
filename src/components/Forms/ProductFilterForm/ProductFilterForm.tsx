@@ -1,13 +1,11 @@
 import React from 'react';
 import FormCarousel from './FormCarousel';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import {
-//   faCopy,
-//   faEnvelope,
-//   faPenAlt,
-// } from '@fortawesome/free-solid-svg-icons';
-import Bio from './Bio';
-import Details from './Details';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCopy,
+  faEnvelope,
+  faPenAlt,
+} from '@fortawesome/free-solid-svg-icons';
 import Age from './Age';
 import Gender from './Gender';
 import Category from './Category';
@@ -15,9 +13,9 @@ import Price from './Price';
 import { Wrapper } from './FormCarousel/Wrapper';
 import { Calendar, PersonStanding } from 'lucide-react';
 
-const NewForm = () => {
+const ProductFilterForm: React.FC = () => {
   return (
-    // <div className="w-70 mx-15 bg-grey rounded-5 overflow-hidden rounded-xl">
+    <div className="w-70 mx-15 bg-grey rounded-5  rounded-xl overflow-x-hidden">
       <Wrapper>
         <div>
           {/* <h1>Form Carousel Demo</h1>
@@ -27,40 +25,30 @@ const NewForm = () => {
             stages={[
               {
                 form: Age,
-                // icon: <Calendar size={24}/>,
+                icon: <Calendar size={20}/>,
                 label: 'Your Age',
               },
               {
                 form: Gender,
-                // icon: <PersonStanding size={24}/>,
+                icon: <PersonStanding size={24}/>,
                 label: 'Your Gender',
               },
               {
                 form: Category,
-                // icon: <PersonStanding size={24}/>,
+                icon: <PersonStanding size={24}/>,
                 label: 'Category',
               },
               {
                 form: Price,
-                // icon: <FontAwesomeIcon icon={faEnvelope} />,
+                icon: <FontAwesomeIcon icon={faEnvelope} />,
                 label: 'Price',
               },
-              // {
-              //   form: Details,
-              //   icon: <FontAwesomeIcon icon={faCopy} />,
-              //   label: 'Your Details',
-              // },
-              // {
-              //   form: Bio,
-              //   icon: <FontAwesomeIcon icon={faPenAlt} />,
-              //   label: 'Bio',
-              // },
             ]}
           />
         </div>
       </Wrapper>
-    // </div>
+     </div>
   );
 };
 
-export default NewForm;
+export default ProductFilterForm;

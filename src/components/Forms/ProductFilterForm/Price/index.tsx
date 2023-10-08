@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { withFormik, FormikProps, FormikErrors, Form } from 'formik';
+import { withFormik, FormikProps, Form } from 'formik';
 import { FormCarousel_Form, Form_Price } from '../FormCarousel/types';
-import { Checkbox } from '../FormCarousel/utils';
 import Stage from '../FormCarousel/Stage';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
@@ -49,13 +48,13 @@ const Price = withFormik<FormCarousel_Form, Form_Price>({
     };
   },
 
-  validate: (values: Form_Price) => {
-    let errors: FormikErrors<any> = {};
-    if (values.price > 0) { // not okay
-      errors['price'] = 'Please accept the terms of service';
-    }
-    return errors;
-  },
+  // validate: (values: Form_Price) => {
+  //   let errors: FormikErrors<any> = {};
+  //   if (values.price > 0) { // not okay
+  //     errors['price'] = 'Please accept the terms of service';
+  //   }
+  //   return errors;
+  // },
 
   handleSubmit: (values, formikBag) => {
     formikBag.props.setCompleted(formikBag.props.index, true);

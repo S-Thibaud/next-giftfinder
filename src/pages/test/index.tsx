@@ -1,10 +1,8 @@
-import MainForm from '../../components/Forms2/MainForm';
-import NewForm from '../../components/Forms/NewForm';
+import ProductFilterForm from '../../components/Forms/ProductFilterForm/ProductFilterForm'
 
 const index = () => {
   return (
-    // <MainForm />
-    <NewForm />
+    <ProductFilterForm />
   )
 };
 

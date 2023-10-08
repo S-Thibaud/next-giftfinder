@@ -7,3 +7,8 @@ body {
   margin: 0 auto;
   padding: 1.25rem;
 }
+
+/* ProductFilterForm svg not vertically aligned */
+svg {
+  display: inline;
+}
