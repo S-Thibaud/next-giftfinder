@@ -1,5 +1,13 @@
 import React from 'react';
-import { withFormik, Form, Field, ErrorMessage, FormikErrors, FormikProps, FieldProps } from 'formik';
+import {
+  withFormik,
+  Form,
+  Field,
+  ErrorMessage,
+  FormikErrors,
+  FormikProps,
+  FieldProps,
+} from 'formik';
 import { FormCarousel_Form, Form_Category } from '../FormCarousel/types';
 import Stage from '../FormCarousel/Stage';
 import Select from 'react-select';
@@ -37,7 +45,9 @@ const validateForm = (values: FormValues) => {
   return errors;
 };
 
-const CategoryForm: React.FC<FormCarousel_Form & FormikProps<FormValues>> = (props) => {
+const CategoryForm: React.FC<FormCarousel_Form & FormikProps<FormValues>> = (
+  props
+) => {
   return (
     <Stage transition={props.transition}>
       <CustomInput>
@@ -46,15 +56,11 @@ const CategoryForm: React.FC<FormCarousel_Form & FormikProps<FormValues>> = (pro
           <Field name="selectedCategories">
             {(field: FieldProps<FormValues['selectedCategories']>) => (
               <Select
+                instanceId="long-value-select"
                 {...field.field}
                 isMulti
-                options={categoryOptions.map(category => ({
-                  ...category,
-                  options: category.options.map(option => ({
-                    ...option,
-                    key: uuidv4(), // Generate a unique key using uuid
-                  })),
-                }))}                onChange={(selectedOptions: any) =>
+                options={categoryOptions}
+                onChange={(selectedOptions: any) =>
                   props.setFieldValue('selectedCategories', selectedOptions)
                 }
                 value={props.values.selectedCategories}
@@ -71,7 +77,6 @@ const CategoryForm: React.FC<FormCarousel_Form & FormikProps<FormValues>> = (pro
     </Stage>
   );
 };
-
 
 const Category = withFormik<FormCarousel_Form, FormValues>({
   mapPropsToValues: (props) => {

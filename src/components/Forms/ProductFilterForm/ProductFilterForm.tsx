@@ -11,7 +11,7 @@ import Gender from './Gender';
 import Category from './Category';
 import Price from './Price';
 import { Wrapper } from './FormCarousel/Wrapper';
-import { Calendar, PersonStanding } from 'lucide-react';
+import { Calendar, Euro, LayoutTemplate, PersonStanding } from 'lucide-react';
 
 const ProductFilterForm: React.FC = () => {
   return (
@@ -35,12 +35,12 @@ const ProductFilterForm: React.FC = () => {
               },
               {
                 form: Category,
-                icon: <PersonStanding size={24}/>,
+                icon: <LayoutTemplate size={24}/>,
                 label: 'Category',
               },
               {
                 form: Price,
-                icon: <FontAwesomeIcon icon={faEnvelope} />,
+                icon: <Euro />,
                 label: 'Price',
               },
             ]}
