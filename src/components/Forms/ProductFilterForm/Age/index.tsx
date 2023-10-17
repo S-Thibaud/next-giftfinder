@@ -46,6 +46,7 @@ const Age = withFormik<FormCarousel_Form, Form_Age>({
     return errors;
   },
   handleSubmit: (values, formikBag) => {
+    
     formikBag.props.setCompleted(formikBag.props.index, true);
     formikBag.props.toggleStage(formikBag.props.index + 1);
   }
