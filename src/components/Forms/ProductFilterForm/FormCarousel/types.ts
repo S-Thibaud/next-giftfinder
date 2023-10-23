@@ -18,14 +18,14 @@ export interface FormCarousel_Stage {
   form: React.ComponentType<FormCarousel_Form>;
   icon: React.ReactNode;
   label: string;
-  onFormSubmit: Object;
+  // onFormSubmit: Object;
 }
 
 export interface FormCarouselState {
   activeStage: number;
   stageOut: number;
   stageCompleted: Array<boolean>;
-  formData: Object;
+  // formData: Object;
 }
 
 export interface FormCarousel_Form {
@@ -35,7 +35,7 @@ export interface FormCarousel_Form {
   setCompleted (index: number, completed: boolean): void;
   toggleStage (index: number): void;
   transition: StageTransition;
-  onFormSubmit: Object;
+  // onFormSubmit: Object;
 }
 
 export interface FormCarousel_StyledStage {

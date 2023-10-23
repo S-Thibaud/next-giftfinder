@@ -12,6 +12,7 @@ import Category from './Category';
 import Price from './Price';
 import { Wrapper } from './FormCarousel/Wrapper';
 import { Calendar, Euro, LayoutTemplate, PersonStanding } from 'lucide-react';
+import { FormCarouselContext } from '../../../store/form-carousel-context';
 
 interface FormData {
   age?: number;
@@ -51,48 +52,48 @@ const ProductFilterForm: React.FC = () => {
       <Wrapper>
         <div>
           {/* <h1>Form Carousel Demo</h1>
-          <h4>Fill out your details below to complete the form.</h4> */}
+          <h4>Instructions ...</h4> */}
 
-          <FormCarousel
-            stages={[
-              {
-                form: Age,
-                icon: <Calendar size={20}/>,
-                label: 'Your Age',
-                onFormSubmit: (data: FormData) => {
-                  setFormData({ ...formData, ...data }); // Store age data
+          <FormCarouselContext.Provider
+            value={{
+              age: 0,
+              gender: null,
+              category: [],
+              price: {
+                min: 0,
+                max: 250,
+              },
+            }}
+          >
+            <FormCarousel
+              stages={[
+                {
+                  form: Age,
+                  icon: <Calendar size={20} />,
+                  label: 'Your Age',
                 },
-              },
-              {
-                form: Gender,
-                icon: <PersonStanding size={24}/>,
-                label: 'Your Gender',
-                onFormSubmit: (data: FormData) => {
-                  setFormData({ ...formData, ...data }); // Store age data
+                {
+                  form: Gender,
+                  icon: <PersonStanding size={24} />,
+                  label: 'Your Gender',
                 },
-              },
-              {
-                form: Category,
-                icon: <LayoutTemplate size={24}/>,
-                label: 'Category',
-                onFormSubmit: (data: FormData) => {
-                  setFormData({ ...formData, ...data }); // Store age data
-                },                
-              },
-              {
-                form: Price,
-                icon: <Euro />,
-                label: 'Price',
-                onFormSubmit: (data: FormData) => {
-                  setFormData({ ...formData, ...data }); // Store age data
+                {
+                  form: Category,
+                  icon: <LayoutTemplate size={24} />,
+                  label: 'Category',
                 },
-              },
-            ]}
-            onFormSubmit={handleFormSubmit}
-          />
+                {
+                  form: Price,
+                  icon: <Euro />,
+                  label: 'Price',
+                },
+              ]}
+              onFormSubmit={handleFormSubmit}
+            />
+          </FormCarouselContext.Provider>
         </div>
       </Wrapper>
-     </div>
+    </div>
   );
 };
 

@@ -9,6 +9,7 @@ import {
   FormCarousel_Stage,
   FormCarousel_Form,
 } from './types';
+import { useFormikContext } from 'formik';
 
 export class FormCarousel extends React.Component<
   FormCarouselProps,
@@ -17,8 +18,8 @@ export class FormCarousel extends React.Component<
   state: FormCarouselState = {
     activeStage: 0,
     stageOut: -1,
-    stageCompleted: [],
-    formData: {},
+    stageCompleted: []
+    // formData: {},
   };
 
   constructor(props: FormCarouselProps) {
@@ -46,9 +47,9 @@ export class FormCarousel extends React.Component<
   };
 
   // Create a function to update form data in the state
-  updateFormData = (formData: Object) => {
-    this.setState({ formData: { ...this.state.formData, ...formData } });
-  };
+  // updateFormData = (formData: Object) => {
+  //   this.setState({ formData: { ...this.state.formData, ...formData } });
+  // };
 
   // Create a function to check if all stages are completed
   areAllStagesCompleted = () => {
@@ -58,25 +59,30 @@ export class FormCarousel extends React.Component<
   // Create a function to submit the combined data to the backend API
   handleSubmitToBackend = () => {
     if (this.areAllStagesCompleted()) {
-      const { formData } = this.state;
+      console.log("SUBMIT TO BACKEND");
+      const formik = useFormikContext();
+      const formData = formik.values;
+      console.log('Submit this data to the backend:', formData);
+
+      // const { formData } = this.state;
       // Send formData to the backend API
-      fetch('/api/products', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-        .then((response) => {
-          if (response.ok) {
-            // Handle success
-          } else {
-            // Handle API request errors
-          }
-        })
-        .catch((error) => {
-          // Handle fetch or network errors
-        });
+      // fetch('/api/products', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   // body: JSON.stringify(formData),
+      // })
+      //   .then((response) => {
+      //     if (response.ok) {
+      //       // Handle success
+      //     } else {
+      //       // Handle API request errors
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     // Handle fetch or network errors
+      //   });
     }
   };
 
@@ -131,7 +137,7 @@ export class FormCarousel extends React.Component<
                       : `stage_out_left`
                     : `none`
                 }
-                onFormSubmit={this.updateFormData}
+                // onFormSubmit={this.updateFormData}
               />
             );
           })}
