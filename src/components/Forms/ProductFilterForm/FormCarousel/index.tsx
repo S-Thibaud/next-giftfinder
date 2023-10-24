@@ -1,155 +1,105 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { Wrapper } from './Wrapper';
 import { StageButton } from './StageButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import {
   FormCarouselProps,
-  FormCarouselState,
   FormCarousel_Stage,
   FormCarousel_Form,
 } from './types';
-import { useFormikContext } from 'formik';
+import { FormCarouselContext } from '@/store/form-carousel-context';
 
-export class FormCarousel extends React.Component<
-  FormCarouselProps,
-  FormCarouselState
-> {
-  state: FormCarouselState = {
-    activeStage: 0,
-    stageOut: -1,
-    stageCompleted: []
-    // formData: {},
+const FormCarousel: React.FC<FormCarouselProps> = (props) => {
+  const [activeStage, setActiveStage] = useState(0);
+  const [stageOut, setStageOut] = useState(-1);
+  const [stageCompleted, setStageCompleted] = useState(props.stages.map(() => false));
+  const formCarouselCtx = useContext(FormCarouselContext);
+
+  const toggleActiveStage = (index: number) => {
+    setActiveStage(index);
+    setStageOut(index); // Update the stageOut state to the current active stage
   };
 
-  constructor(props: FormCarouselProps) {
-    super(props);
-    const stages = props.stages.map((item: FormCarousel_Stage) => {
-      return false;
-    });
-
-    this.state.stageCompleted = stages;
-  }
-
-  toggleActiveStage = (index: number) => {
-    this.setState({
-      activeStage: index,
-      stageOut: this.state.activeStage,
-    });
+  const setStageCompletedStatus = (index: number, completed: boolean) => {
+    const updatedStageCompleted = [...stageCompleted];
+    updatedStageCompleted[index] = completed;
+    setStageCompleted(updatedStageCompleted);
   };
 
-  setStageCompleted = (index: number, completed: boolean) => {
-    const stageCompleted: Array<boolean> = Object.values(
-      this.state.stageCompleted
-    );
-    stageCompleted[index] = completed;
-    this.setState({ stageCompleted: stageCompleted });
+  const areAllStagesCompleted = () => {
+    return stageCompleted.every((completed) => completed);
   };
 
-  // Create a function to update form data in the state
-  // updateFormData = (formData: Object) => {
-  //   this.setState({ formData: { ...this.state.formData, ...formData } });
-  // };
+  const handleSubmitToBackend = () => {
+    // if (areAllStagesCompleted() && activeStage < props.stages.length - 1) {
+    //   toggleActiveStage(activeStage + 1); // Move to the next stage if all are completed
 
-  // Create a function to check if all stages are completed
-  areAllStagesCompleted = () => {
-    return this.state.stageCompleted.every((completed) => completed);
-  };
-
-  // Create a function to submit the combined data to the backend API
-  handleSubmitToBackend = () => {
-    if (this.areAllStagesCompleted()) {
-      console.log("SUBMIT TO BACKEND");
-      const formik = useFormikContext();
-      const formData = formik.values;
-      console.log('Submit this data to the backend:', formData);
-
-      // const { formData } = this.state;
-      // Send formData to the backend API
-      // fetch('/api/products', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   // body: JSON.stringify(formData),
-      // })
-      //   .then((response) => {
-      //     if (response.ok) {
-      //       // Handle success
-      //     } else {
-      //       // Handle API request errors
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     // Handle fetch or network errors
-      //   });
+    // }
+    if (areAllStagesCompleted()){
+      console.log("ALL STAGES ARE COMPLETED");
+      
     }
+
+    console.log("test");
   };
 
-  render() {
-    return (
-      <Wrapper>
-        <header>
-          {this.props.stages.map((item: FormCarousel_Stage, i: number) => (
-            <React.Fragment key={i}>
-              {i > 0 && (
-                <FontAwesomeIcon
-                  className="separator"
-                  icon={faAngleDoubleRight}
-                  transform="grow-4"
-                />
-              )}
-              <StageButton
-                active={i === this.state.activeStage ? true : false}
-                complete={this.state.stageCompleted[i] === true}
-                icon={item.icon}
-                index={i}
-                label={item.label}
-                toggle={this.toggleActiveStage}
+  return (
+    <Wrapper>
+      <header>
+        {props.stages.map((item: FormCarousel_Stage, i: number) => (
+          <React.Fragment key={i}>
+            {i > 0 && (
+              <FontAwesomeIcon
+                className="separator"
+                icon={faAngleDoubleRight}
+                transform="grow-4"
               />
-            </React.Fragment>
-          ))}
-        </header>
+            )}
+            <StageButton
+              active={i === activeStage}
+              complete={stageCompleted[i]}
+              icon={item.icon}
+              index={i}
+              label={item.label}
+              toggle={() => toggleActiveStage(i)}
+            />
+          </React.Fragment>
+        ))}
+      </header>
 
-        <div>
-          {this.props.stages.map((stage: FormCarousel_Stage, i: number) => {
-            const Form: React.ComponentType<FormCarousel_Form> = stage.form;
+      <div>
+        {props.stages.map((stage: FormCarousel_Stage, i: number) => {
+          const Form: React.ComponentType<FormCarousel_Form> = stage.form;
 
-            return (
-              <Form
-                className={
-                  this.state.activeStage !== i && this.state.stageOut !== i
-                    ? `hidden`
-                    : ``
-                }
-                index={i}
-                key={i}
-                setCompleted={this.setStageCompleted}
-                toggleStage={this.toggleActiveStage}
-                transition={
-                  this.state.activeStage === i
-                    ? this.state.activeStage > this.state.stageOut
-                      ? `stage_in_right`
-                      : `stage_in_left`
-                    : this.state.stageOut === i
-                    ? this.state.activeStage < this.state.stageOut
-                      ? `stage_out_right`
-                      : `stage_out_left`
-                    : `none`
-                }
-                // onFormSubmit={this.updateFormData}
-              />
-            );
-          })}
-        </div>
+          return (
+            <Form
+              className={
+                activeStage !== i && stageOut !== i ? `hidden` : ``
+              }
+              index={i}
+              key={i}
+              setCompleted={setStageCompletedStatus}
+              toggleStage={() => toggleActiveStage(i + 1)}
+              transition={
+                activeStage === i
+                  ? activeStage > stageOut
+                    ? `stage_in_right`
+                    : `stage_in_left`
+                  : stageOut === i
+                  ? activeStage < stageOut
+                    ? `stage_out_right`
+                    : `stage_out_left`
+                  : `none`
+              }
+            />
+          );
+        })}
+      </div>
 
-        {/* Render a submit button to send data to the backend API */}
-        <button onClick={this.handleSubmitToBackend}>
-          Submit All Data to Backend
-        </button>
-      </Wrapper>
-    );
-  }
-}
+      <button onClick={handleSubmitToBackend}>Submit All Data to Backend</button>
+    </Wrapper>
+  );
+};
 
 export default FormCarousel;

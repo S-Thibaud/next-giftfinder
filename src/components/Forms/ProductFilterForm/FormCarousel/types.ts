@@ -4,7 +4,6 @@ export type StageTransition = 'stage_in_left' | 'stage_out_left' | 'stage_in_rig
 
 export interface FormCarouselProps {
   stages: FormCarousel_Stage[];
-  onFormSubmit: (formData: FormData) => void;
 }
 
 export interface FormData {
@@ -18,14 +17,12 @@ export interface FormCarousel_Stage {
   form: React.ComponentType<FormCarousel_Form>;
   icon: React.ReactNode;
   label: string;
-  // onFormSubmit: Object;
 }
 
 export interface FormCarouselState {
   activeStage: number;
   stageOut: number;
   stageCompleted: Array<boolean>;
-  // formData: Object;
 }
 
 export interface FormCarousel_Form {
@@ -35,7 +32,6 @@ export interface FormCarousel_Form {
   setCompleted (index: number, completed: boolean): void;
   toggleStage (index: number): void;
   transition: StageTransition;
-  // onFormSubmit: Object;
 }
 
 export interface FormCarousel_StyledStage {

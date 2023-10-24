@@ -14,10 +14,6 @@ const PriceForm: React.FC<FormCarousel_Form & FormikProps<Form_Price>> = (
     setValue(newValue as [number, number]);
   };
 
-  // const handleFormSubmit = (data: FormData) => {
-  //   props.onFormSubmit(data);
-  // }
-
   return (
     <Stage transition={props.transition}>
       <div className="wrap">
