@@ -38,7 +38,7 @@ const FormCarousel: React.FC<FormCarouselProps> = (props) => {
     // }
     if (areAllStagesCompleted()){
       console.log("ALL STAGES ARE COMPLETED");
-      
+      console.log(formCarouselCtx);
     }
 
     console.log("test");

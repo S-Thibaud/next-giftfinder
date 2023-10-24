@@ -1,100 +1,92 @@
-import React from 'react';
-import {
-  withFormik,
-  Form,
-  Field,
-  ErrorMessage,
-  FormikErrors,
-  FormikProps,
-  FieldProps,
-} from 'formik';
-import { FormCarousel_Form, Form_Category } from '../FormCarousel/types';
+import React, { useContext } from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Stage from '../FormCarousel/Stage';
 import Select from 'react-select';
 import { CustomInput } from './CategoryFormStyles';
-import { v4 as uuidv4 } from 'uuid'; // Import uuid
+import { FormCarousel_Form, Form_Category } from '../FormCarousel/types';
+import { FormCarouselContext } from '@/store/form-carousel-context';
 
-interface FormValues {
-  selectedCategories: any[];
-}
+// interface FormValues {
+//   selectedCategories: any[];
+// }
 
-const initialValues = {
-  selectedCategories: [],
+// const initialValues: FormValues = {
+//   selectedCategories: [],
+// };
+
+const initialCategoryValues: Form_Category = {
+  category: [], // Set an initial value for 'category'
 };
 
-const categoryOptions = [
-  {
-    label: 'Books',
-    options: [
-      { value: 'Novels', label: 'Novels' },
-      { value: 'Thrillers', label: 'Thrillers' },
-      { value: 'Fantasy', label: 'Fantasy' },
-    ],
-  },
-  // Add more category options here
-];
+// const validateForm = (values: FormValues) => {
+//   const errors: Partial<FormValues> = {};
 
-const validateForm = (values: FormValues) => {
-  const errors: FormikErrors<FormValues> = {};
+//   if (values.selectedCategories.length === 0) {
+//     errors.selectedCategories =
+//       'Please select at least one category or subcategory';
+//   }
 
-  if (values.selectedCategories.length === 0) {
-    errors.selectedCategories =
-      'Please select at least one category or subcategory';
-  }
+//   return errors;
+// };
 
-  return errors;
-};
+const CategoryForm: React.FC<FormCarousel_Form> = (props) => {
+  const formCarouselCtx = useContext(FormCarouselContext);
+  
+  const categoryOptions = [
+    {
+      label: 'Books',
+      options: [
+        { value: 'Novels', label: 'Novels' },
+        { value: 'Thrillers', label: 'Thrillers' },
+        { value: 'Fantasy', label: 'Fantasy' },
+      ],
+    },
+  ];
+  
+  const handleSubmit = (values: Form_Category) => {
+    //console.log("age: ", values.age);
+    formCarouselCtx.category = values.category;
+    console.log(values.category);
+    // console.log(props.index);
+    props.setCompleted(props.index, true);
+    props.toggleStage(props.index + 1);
+  
+  };
 
-const CategoryForm: React.FC<FormCarousel_Form & FormikProps<FormValues>> = (
-  props
-) => {
   return (
-    <Stage transition={props.transition}>
-      <CustomInput>
-        <Form>
-          <h3>Choose categories and subcategories</h3>
-          <Field name="selectedCategories">
-            {(field: FieldProps<FormValues['selectedCategories']>) => (
-              <Select
-                instanceId="long-value-select"
-                {...field.field}
-                isMulti
-                options={categoryOptions}
-                onChange={(selectedOptions: any) =>
-                  props.setFieldValue('selectedCategories', selectedOptions)
-                }
-                value={props.values.selectedCategories}
-              />
-            )}
-          </Field>
-          <p className="error">
-            <ErrorMessage name="selectedCategories" />
-          </p>
+    <Formik
+      initialValues={initialCategoryValues}
+      //validate={validateForm}
+      onSubmit={handleSubmit}
+    >
+      <Form>
+        <Stage transition={props.transition}>
+          <CustomInput>
+            <h3>Choose categories and subcategories</h3>
+            <Field name="category">
+              {({ field, form }: { field: any; form: any }) => (
+                <Select
+                  instanceId="long-value-select"
+                  {...field}
+                  isMulti
+                  options={categoryOptions}
+                  onChange={(selectedOptions: any) =>
+                    form.setFieldValue('category', selectedOptions)
+                  }
+                  value={form.values.selectedCategories}
+                />
+              )}
+            </Field>
+            <p className="error">
+              <ErrorMessage name="selectedCategories" />
+            </p>
 
-          <input className="textbox submit" type="submit" value="Continue" />
-        </Form>
-      </CustomInput>
-    </Stage>
+            <input className="textbox submit" type="submit" value="Continue" />
+          </CustomInput>
+        </Stage>
+      </Form>
+    </Formik>
   );
 };
 
-const Category = withFormik<FormCarousel_Form, FormValues>({
-  mapPropsToValues: (props) => {
-    return {
-      selectedCategories: [],
-    };
-  },
-  validate: (values) => {
-    const errors: FormikErrors<FormValues> = {};
-    if (values.selectedCategories.length === 0) {
-      errors.selectedCategories = 'Please provide at least one category';
-    }
-    return errors;
-  },
-  handleSubmit: (values, formikBag) => {
-    formikBag.props.setCompleted(formikBag.props.index, true);
-    formikBag.props.toggleStage(formikBag.props.index + 1);
-  },
-})(CategoryForm);
-
-export default Category;
+export default CategoryForm;

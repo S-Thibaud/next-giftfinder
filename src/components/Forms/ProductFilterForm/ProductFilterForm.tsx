@@ -25,7 +25,7 @@ const ProductFilterForm: React.FC = () => {
           <FormCarouselContext.Provider
             value={{
               age: 0,
-              gender: null,
+              gender: '',
               category: [],
               price: {
                 min: 0,

@@ -2,7 +2,7 @@ import { createContext } from 'react';
 
 export const FormCarouselContext = createContext({
   age: 0,
-  gender: null,
+  gender: '',
   category: [],
   price: {
     min: 0,
