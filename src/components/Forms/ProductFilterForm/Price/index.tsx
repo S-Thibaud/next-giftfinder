@@ -15,6 +15,8 @@ const PriceForm: React.FC<FormCarousel_Form> = (props) => {
     formCarouselCtx.price.min = value[0];
     formCarouselCtx.price.max = value[1];
     props.setCompleted(props.index, true);
+    console.log("1234test");
+    props.submitCarousel();
   };
 
   const handleChange = (event: Event, newValue: number | number[]) => {

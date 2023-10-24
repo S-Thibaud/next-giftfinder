@@ -28,10 +28,13 @@ const FormCarousel: React.FC<FormCarouselProps> = (props) => {
   };
 
   const areAllStagesCompleted = () => {
+    console.log(stageCompleted);
     return stageCompleted.every((completed) => completed);
   };
 
   const handleSubmitToBackend = () => {
+    console.log("in handlesubmit to backend");
+    console.log(props.stages);
     // if (areAllStagesCompleted() && activeStage < props.stages.length - 1) {
     //   toggleActiveStage(activeStage + 1); // Move to the next stage if all are completed
 
@@ -40,8 +43,9 @@ const FormCarousel: React.FC<FormCarouselProps> = (props) => {
       console.log("ALL STAGES ARE COMPLETED");
       console.log(formCarouselCtx);
     }
+    console.log(formCarouselCtx);
 
-    console.log("test");
+    console.log("test fa");
   };
 
   return (
@@ -81,6 +85,7 @@ const FormCarousel: React.FC<FormCarouselProps> = (props) => {
               key={i}
               setCompleted={setStageCompletedStatus}
               toggleStage={() => toggleActiveStage(i + 1)}
+              submitCarousel={handleSubmitToBackend}
               transition={
                 activeStage === i
                   ? activeStage > stageOut

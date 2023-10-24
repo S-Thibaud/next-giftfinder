@@ -31,6 +31,7 @@ export interface FormCarousel_Form {
   key: number;
   setCompleted (index: number, completed: boolean): void;
   toggleStage (index: number): void;
+  submitCarousel: any;
   transition: StageTransition;
 }
 

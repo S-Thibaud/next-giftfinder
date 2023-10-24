@@ -40,16 +40,16 @@ const ProductFilterForm: React.FC = () => {
                   icon: <Calendar size={20} />,
                   label: 'Your Age',
                 },
-                {
-                  form: Gender,
-                  icon: <PersonStanding size={24} />,
-                  label: 'Your Gender',
-                },
-                {
-                  form: Category,
-                  icon: <LayoutTemplate size={24} />,
-                  label: 'Category',
-                },
+                // {
+                //   form: Gender,
+                //   icon: <PersonStanding size={24} />,
+                //   label: 'Your Gender',
+                // },
+                // {
+                //   form: Category,
+                //   icon: <LayoutTemplate size={24} />,
+                //   label: 'Category',
+                // },
                 {
                   form: Price,
                   icon: <Euro />,
