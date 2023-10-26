@@ -1,7 +1,7 @@
 import Product from '../../components/Product';
 import db from './db';
 
-const Categories = ({data}) => {
+const Categories = ({ data }) => {
   return (
     <div>
       <h1>Data Display Component</h1>
@@ -15,7 +15,6 @@ const Categories = ({data}) => {
 };
 
 export default Categories;
-
 
 export async function getStaticProps() {
   // Fetch data from MySQL database

@@ -28,15 +28,16 @@ const CategoryForm: React.FC<FormCarousel_Form> = (props) => {
     {
       label: 'Books',
       options: [
-        { value: 'Novels', label: 'Novels' },
-        { value: 'Thrillers', label: 'Thrillers' },
-        { value: 'Fantasy', label: 'Fantasy' },
+        { category: 'Books', value: 'Novels', label: 'Novels' },
+        { category: 'Books', value: 'Thrillers', label: 'Thrillers' },
+        { category: 'Books', value: 'Fantasy', label: 'Fantasy' },
       ],
     },
   ];
   
   const handleSubmit = (values: Form_Category) => {
     formCarouselCtx.category = values.category;
+    console.log(values.category);
     props.setCompleted(props.index, true);
     props.toggleStage(props.index + 1);
   };
