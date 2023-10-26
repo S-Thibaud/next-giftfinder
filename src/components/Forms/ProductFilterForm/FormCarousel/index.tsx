@@ -25,6 +25,10 @@ const FormCarousel: React.FC<FormCarouselProps> = (props) => {
     const updatedStageCompleted = [...stageCompleted];
     updatedStageCompleted[index] = completed;
     setStageCompleted(updatedStageCompleted);
+    
+    if (areAllStagesCompleted()) {
+      handleSubmitToBackend();
+    }
   };
 
   const areAllStagesCompleted = () => {
