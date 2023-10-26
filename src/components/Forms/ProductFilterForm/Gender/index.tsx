@@ -4,17 +4,14 @@ import { FormCarousel_Form, Form_Gender } from '../FormCarousel/types';
 import Stage from '../FormCarousel/Stage';
 import { FormCarouselContext } from '@/store/form-carousel-context';
 
-
-
 const GenderForm: React.FC<FormCarousel_Form> = (props) => {
   const formCarouselCtx = useContext(FormCarouselContext);
 
   const initialValues = {
     gender: '',
   };
-  
+
   const handleSubmit = (values: Form_Gender) => {
-    // console.log(props.index);
     formCarouselCtx.gender = values.gender;
     props.setCompleted(props.index, true);
     props.toggleStage(props.index + 1);
@@ -74,7 +71,9 @@ const GenderFormContent = () => (
       <ErrorMessage name="gender" />
     </p>
 
-    <button className='textbox submit' type="submit">Continue</button>
+    <button className="textbox submit" type="submit">
+      Continue
+    </button>
   </Form>
 );
 

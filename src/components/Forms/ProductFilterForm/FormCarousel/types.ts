@@ -66,11 +66,3 @@ export interface Form_Category {
 export interface Form_Price {
   price: number
 }
-
-// export interface Form_Bio {
-//   bio: string
-// }
-
-// export interface Form_Submit {
-//   agree: boolean
-// }

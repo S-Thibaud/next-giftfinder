@@ -19,7 +19,7 @@ const ProductFilterForm: React.FC = () => {
     <div className="w-70 mx-15 bg-grey rounded-5  rounded-xl overflow-x-hidden">
       <Wrapper>
         <div>
-          {/* <h1>Form Carousel Demo</h1>
+          {/* <h1>Products Filter Form</h1>
           <h4>Instructions ...</h4> */}
 
           <FormCarouselContext.Provider
@@ -40,16 +40,16 @@ const ProductFilterForm: React.FC = () => {
                   icon: <Calendar size={20} />,
                   label: 'Your Age',
                 },
-                // {
-                //   form: Gender,
-                //   icon: <PersonStanding size={24} />,
-                //   label: 'Your Gender',
-                // },
-                // {
-                //   form: Category,
-                //   icon: <LayoutTemplate size={24} />,
-                //   label: 'Category',
-                // },
+                {
+                  form: Gender,
+                  icon: <PersonStanding size={24} />,
+                  label: 'Your Gender',
+                },
+                {
+                  form: Category,
+                  icon: <LayoutTemplate size={24} />,
+                  label: 'Category',
+                },
                 {
                   form: Price,
                   icon: <Euro />,

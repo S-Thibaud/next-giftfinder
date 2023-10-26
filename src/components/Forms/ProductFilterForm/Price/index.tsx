@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { FormCarouselContext } from '@/store/form-carousel-context';
 import { FormCarousel_Form, Form_Price } from '../FormCarousel/types';
 
-const PriceForm: React.FC<FormCarousel_Form> = ({index, transition, setCompleted, submitCarousel}) => {
+const PriceForm: React.FC<FormCarousel_Form> = (props) => {
   const formCarouselCtx = useContext(FormCarouselContext);
 
   const [value, setValue] = useState([0, 250]);
@@ -14,19 +14,8 @@ const PriceForm: React.FC<FormCarousel_Form> = ({index, transition, setCompleted
   const handleSubmit = (values: Form_Price) => {
     formCarouselCtx.price.min = value[0];
     formCarouselCtx.price.max = value[1];
-    setCompleted(index, true);
-
-
-
-    // console.log("1234test");
-    ;
+    props.setCompleted(props.index, true);
   };
-
-  // useEffect(() => {
-  //     submitCarousel();
-  // }, [submitCarousel]);
-
-  
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     setValue(newValue as [number, number]);
@@ -38,7 +27,7 @@ const PriceForm: React.FC<FormCarousel_Form> = ({index, transition, setCompleted
       onSubmit={handleSubmit}
     >
       <Form>
-        <Stage transition={transition}>
+        <Stage transition={props.transition}>
           <div className="wrap">
             <h3>Please select a price range</h3>
             <div>

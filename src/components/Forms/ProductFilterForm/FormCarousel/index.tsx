@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Wrapper } from './Wrapper';
 import { StageButton } from './StageButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,36 +21,31 @@ const FormCarousel: React.FC<FormCarouselProps> = (props) => {
     setStageOut(index); // Update the stageOut state to the current active stage
   };
 
-  const setStageCompletedStatus = (index: number, completed: boolean) => {
-    const updatedStageCompleted = [...stageCompleted];
-    updatedStageCompleted[index] = completed;
-    setStageCompleted(updatedStageCompleted);
-    
+  const setStageCompletedStatus = useCallback((index: number, completed: boolean) => {
+    setStageCompleted((prevStageCompleted) => {
+      const updatedStageCompleted = [...prevStageCompleted];
+      updatedStageCompleted[index] = completed;
+      return updatedStageCompleted;
+    });
+  }, []);
+
+  const areAllStagesCompleted = useCallback(() => {
+    return stageCompleted.every((completed) => completed);
+  }, [stageCompleted]);
+
+  const handleSubmitToBackend = useCallback(() => {
+    // console.log(props.stages);
+
+      console.log("ALL STAGES ARE COMPLETED");
+      console.log(formCarouselCtx);
+  }, [formCarouselCtx]);
+
+  // Trigger handleSubmitToBackend when stageCompleted changes
+  useEffect(() => {
     if (areAllStagesCompleted()) {
       handleSubmitToBackend();
     }
-  };
-
-  const areAllStagesCompleted = () => {
-    console.log(stageCompleted);
-    return stageCompleted.every((completed) => completed);
-  };
-
-  const handleSubmitToBackend = () => {
-    console.log("in handlesubmit to backend");
-    console.log(props.stages);
-    // if (areAllStagesCompleted() && activeStage < props.stages.length - 1) {
-    //   toggleActiveStage(activeStage + 1); // Move to the next stage if all are completed
-
-    // }
-    if (areAllStagesCompleted()){
-      console.log("ALL STAGES ARE COMPLETED");
-      console.log(formCarouselCtx);
-    }
-    console.log(formCarouselCtx);
-
-    console.log("test fa");
-  };
+  }, [areAllStagesCompleted, handleSubmitToBackend]);
 
   return (
     <Wrapper>
@@ -105,8 +100,6 @@ const FormCarousel: React.FC<FormCarouselProps> = (props) => {
           );
         })}
       </div>
-
-      <button onClick={handleSubmitToBackend}>Submit All Data to Backend</button>
     </Wrapper>
   );
 };

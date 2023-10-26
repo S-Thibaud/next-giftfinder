@@ -6,14 +6,6 @@ import { CustomInput } from './CategoryFormStyles';
 import { FormCarousel_Form, Form_Category } from '../FormCarousel/types';
 import { FormCarouselContext } from '@/store/form-carousel-context';
 
-// interface FormValues {
-//   selectedCategories: any[];
-// }
-
-// const initialValues: FormValues = {
-//   selectedCategories: [],
-// };
-
 const initialCategoryValues: Form_Category = {
   category: [], // Set an initial value for 'category'
 };
@@ -44,13 +36,9 @@ const CategoryForm: React.FC<FormCarousel_Form> = (props) => {
   ];
   
   const handleSubmit = (values: Form_Category) => {
-    //console.log("age: ", values.age);
     formCarouselCtx.category = values.category;
-    console.log(values.category);
-    // console.log(props.index);
     props.setCompleted(props.index, true);
     props.toggleStage(props.index + 1);
-  
   };
 
   return (

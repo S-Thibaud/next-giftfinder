@@ -6,7 +6,7 @@ import { FormCarouselContext } from '@/store/form-carousel-context';
 
 const Age: React.FC<FormCarousel_Form> = (props) => {
   const formCarouselCtx = useContext(FormCarouselContext);
-  
+
   const initialValues = { age: 0 };
 
   const validate = (values: Form_Age) => {
@@ -18,29 +18,35 @@ const Age: React.FC<FormCarousel_Form> = (props) => {
   };
 
   const handleSubmit = (values: Form_Age) => {
-    console.log("age: ", values.age);
     formCarouselCtx.age = values.age;
-    console.log(props.index);
     props.setCompleted(props.index, true);
     props.toggleStage(props.index + 1);
-
   };
 
   return (
     <Stage transition={props.transition}>
-      <div className='wrap'>
-        <Formik initialValues={initialValues} validate={validate} onSubmit={handleSubmit}>
+      <div className="wrap">
+        <Formik
+          initialValues={initialValues}
+          validate={validate}
+          onSubmit={handleSubmit}
+        >
           <Form>
             <h3>Please provide your age</h3>
             <Field
-              className='textbox'
-              type='number'
+              className="textbox"
+              type="number"
               name="age"
               placeholder="Age"
             />
-            <ErrorMessage name="age" render={(msg) => <p className="error">{msg}</p>} />
+            <ErrorMessage
+              name="age"
+              render={(msg) => <p className="error">{msg}</p>}
+            />
 
-            <button className='textbox submit' type="submit">Continue</button>
+            <button className="textbox submit" type="submit">
+              Continue
+            </button>
           </Form>
         </Formik>
       </div>
