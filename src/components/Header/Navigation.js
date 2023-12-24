@@ -1,22 +1,40 @@
 import React from 'react';
 
 import classes from './Navigation.module.css';
+import { Link } from '@mui/icons-material';
 
 const Navigation = (props) => {
   return (
     <nav className={classes.nav}>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/categories">Categorieën</a></li>
-        <li><a href="/contact">Contact</a></li>
+        <li>
+          {' '}
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+        </li>
+        <li>
+        <Link href="/categories">
+            <a>Categorieën</a>
+          </Link>
+        </li>
+        <li>
+        <Link href="/contact">
+            <a>Contact</a>
+          </Link>
+        </li>
         {props.isLoggedIn && (
           <li>
-            <a href="/">Users</a>
-          </li>
+          <Link href="/users">
+            <a>Users</a>
+          </Link>
+        </li>
         )}
         {props.isLoggedIn && (
           <li>
-            <a href="/">Admin</a>
+            <Link href="/admin">
+              <a>Admin</a>
+            </Link>
           </li>
         )}
         {props.isLoggedIn && (
