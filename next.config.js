@@ -4,6 +4,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true
   },
+  basePath: '/github-pages',
 }
 
 module.exports = nextConfig
