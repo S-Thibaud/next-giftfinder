@@ -1,7 +1,7 @@
 import React from 'react';
 import { withFormik, FormikProps, FormikErrors, Form, Field, ErrorMessage } from 'formik';
-import { FormCarousel_Form, Form_Age } from '../FormCarousel/types';
-import Stage from '../FormCarousel/Stage';
+import { FormCarousel_Form, Form_Age } from '../ProductFilterForm/FormCarousel/types';
+import Stage from '../ProductFilterForm/FormCarousel/Stage';
 
 const CategoryForm: React.FC<FormCarousel_Form & FormikProps<Form_Age>> = (props) => {
 
