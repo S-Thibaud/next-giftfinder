@@ -1,18 +1,24 @@
-import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Product from '../../components/Product';
 
 const Products = () => {
-  // const router = useRouter();
-  // const { productData } = router.query; // Retrieve the query parameter
+  const [responseData, setResponseData] = useState([]);
 
-  // if (!productData) {
-  //   return <div>Loading...</div>;
-  // }
+  useEffect(() => {
+    // Check if running on the client side before using localStorage
+    if (typeof window !== 'undefined') {
+      const storedData = localStorage.getItem('productData');
 
-  // // You may want to parse the query parameter if it's a JSON string
-  // const responseData = JSON.parse(productData);
-
-  const responseData = JSON.parse(localStorage.getItem('productData'));
+      if (storedData) {
+        try {
+          const parsedData = JSON.parse(storedData);
+          setResponseData(parsedData);
+        } catch (error) {
+          console.error('Error parsing localStorage data:', error);
+        }
+      }
+    }
+  }, []);
 
   return (
     <div>

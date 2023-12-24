@@ -1,4 +1,4 @@
-import db from '../categories/db';
+import db from './db';
 
 const searchProducts = async (req, res) => {
   if (req.method === 'POST') {

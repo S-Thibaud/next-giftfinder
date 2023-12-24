@@ -1,5 +1,5 @@
 import Product from '../../components/Product';
-import db from './db';
+import db from '../api/db';
 
 const Categories = ({ data }) => {
   return (
