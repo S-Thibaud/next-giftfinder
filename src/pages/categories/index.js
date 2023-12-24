@@ -19,7 +19,8 @@ export default Categories;
 export async function getStaticProps() {
   // Fetch data from MySQL database
   const query = 'SELECT * FROM products';
-  const data = await db.query(query);
+  const data = null;
+  // const data = await db.query(query);
 
   return {
     props: {
